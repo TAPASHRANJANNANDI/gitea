@@ -1,0 +1,22 @@
+name: Gitea Actions Demo
+run-name: CI triggered by ${{ github.actor }}
+on: [push]
+
+jobs:
+  Explore-Gitea-Actions:
+    runs-on: windows
+    steps:
+      - name: Print trigger info
+        run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: Print branch info
+        run: echo "Branch is ${{ github.ref }} and repo is ${{ github.repository }}."
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: List files in the repository
+        run: dir
+
+      - name: Print completion message
+        run: echo "All steps completed successfully!"

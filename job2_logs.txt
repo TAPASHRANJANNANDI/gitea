@@ -1,0 +1,71 @@
+2026-03-07T12:29:10.4306930Z windows-runner(version:v0.3.0) received task 2 of job Explore-Gitea-Actions, be triggered by event: push
+2026-03-07T12:29:10.4359391Z workflow prepared
+2026-03-07T12:29:10.4385806Z evaluating expression 'success()'
+2026-03-07T12:29:10.4406664Z expression 'success()' evaluated to 'true'
+2026-03-07T12:29:10.4453204Z expression 'echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."' rewritten to 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:10.4453204Z evaluating expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:10.4453204Z expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)' evaluated to '%!t(string=echo "🎉 The job was automatically triggered by a push event.")'
+2026-03-07T12:29:10.4453204Z expression 'echo "🐧 This job is now running on a ${{ github.os }} server!"' rewritten to 'format('echo "🐧 This job is now running on a {0} server!"', github.os)'
+2026-03-07T12:29:10.4453204Z evaluating expression 'format('echo "🐧 This job is now running on a {0} server!"', github.os)'
+2026-03-07T12:29:10.4453204Z expression 'format('echo "🐧 This job is now running on a {0} server!"', github.os)' evaluated to '%!t(string=echo "🐧 This job is now running on a  server!")'
+2026-03-07T12:29:10.4453204Z expression 'echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."' rewritten to 'format('echo "🔎 The name of your branch is {0} and your repository is {1}."', github.ref, github.repository)'
+2026-03-07T12:29:10.4453204Z evaluating expression 'format('echo "🔎 The name of your branch is {0} and your repository is {1}."', github.ref, github.repository)'
+2026-03-07T12:29:10.4453204Z expression 'format('echo "🔎 The name of your branch is {0} and your repository is {1}."', github.ref, github.repository)' evaluated to '%!t(string=echo "🔎 The name of your branch is refs/heads/main and your repository is giteaadmin/first-repo.")'
+2026-03-07T12:29:10.4464002Z   ☁  git clone 'https://github.com/actions/checkout' # ref=v4
+2026-03-07T12:29:10.4464002Z   cloning https://github.com/actions/checkout to C:\Users\TAPASHRANJAN\.cache\act/c3fe249fe73091a17d6638fe1341e7bd0bcc3466ce52323c0688e83e2463a4ab
+2026-03-07T12:29:11.2334031Z Enumerating objects: 2351, done.
+2026-03-07T12:29:11.2334031Z Counting objects:  50% (1/2)Counting objects: 100% (2/2)Counting objects: 100% (2/2), done.
+2026-03-07T12:29:11.2339347Z Compressing objects:  50% (1/2)Compressing objects: 100% (2/2)Compressing objects: 100% (2/2), done.
+2026-03-07T12:29:12.8391399Z Total 2351 (delta 0), reused 0 (delta 0), pack-reused 2349 (from 2)
+2026-03-07T12:29:24.2579291Z Cloned https://github.com/actions/checkout to C:\Users\TAPASHRANJAN\.cache\act/c3fe249fe73091a17d6638fe1341e7bd0bcc3466ce52323c0688e83e2463a4ab
+2026-03-07T12:29:24.5381974Z Checked out v4
+2026-03-07T12:29:24.5429779Z expression 'echo "💡 The ${{ github.repository }} repository has been cloned to the runner."' rewritten to 'format('echo "💡 The {0} repository has been cloned to the runner."', github.repository)'
+2026-03-07T12:29:24.5429779Z evaluating expression 'format('echo "💡 The {0} repository has been cloned to the runner."', github.repository)'
+2026-03-07T12:29:24.5434904Z expression 'format('echo "💡 The {0} repository has been cloned to the runner."', github.repository)' evaluated to '%!t(string=echo "💡 The giteaadmin/first-repo repository has been cloned to the runner.")'
+2026-03-07T12:29:24.5434904Z expression 'echo "🍏 This job's status is ${{ github.status }}."' rewritten to 'format('echo "🍏 This job''s status is {0}."', github.status)'
+2026-03-07T12:29:24.5434904Z evaluating expression 'format('echo "🍏 This job''s status is {0}."', github.status)'
+2026-03-07T12:29:24.5435603Z expression 'format('echo "🍏 This job''s status is {0}."', github.status)' evaluated to '%!t(string=echo "🍏 This job's status is .")'
+2026-03-07T12:29:24.5435603Z expression 'echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."' rewritten to 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:24.5435603Z evaluating expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:24.5435603Z expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)' evaluated to '%!t(string=echo "🎉 The job was automatically triggered by a push event.")'
+2026-03-07T12:29:24.5474108Z evaluating expression ''
+2026-03-07T12:29:24.5474108Z expression '' evaluated to 'true'
+2026-03-07T12:29:24.5474108Z expression 'echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."' rewritten to 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:24.5474108Z evaluating expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:24.5474108Z expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)' evaluated to '%!t(string=echo "🎉 The job was automatically triggered by a push event.")'
+2026-03-07T12:29:24.5474108Z ⭐ Run Main echo "🎉 The job was automatically triggered by a push event."
+2026-03-07T12:29:24.5622044Z expression 'echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."' rewritten to 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:24.5622044Z evaluating expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:24.5622044Z expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)' evaluated to '%!t(string=echo "🎉 The job was automatically triggered by a push event.")'
+2026-03-07T12:29:24.5622044Z Wrote command \n$ErrorActionPreference = 'stop'\necho "🎉 The job was automatically triggered by a push event."\nif ((Test-Path -LiteralPath variable:/LASTEXITCODE)) { exit $LASTEXITCODE }\n to 'workflow/0.ps1'
+2026-03-07T12:29:24.5679447Z Failed to setup Pty Unsupported
+2026-03-07T12:29:24.9768126Z dYZ% The job was automatically triggered by a push event.
+2026-03-07T12:29:25.4177122Z dY? This job is now running on a  server!
+2026-03-07T12:29:25.8064272Z At C:\Users\TAPASHRANJAN\.cache\act\0b2f7227dc624944\act\workflow\2.ps1:2 char:100
+2026-03-07T12:29:25.8064272Z + ... nch is refs/heads/main and your repository is giteaadmin/first-repo."
+2026-03-07T12:29:25.8064272Z +                                                                         ~
+2026-03-07T12:29:25.8064272Z The string is missing the terminator: ".
+2026-03-07T12:29:25.8064272Z     + CategoryInfo          : ParserError: (:) [], ParseException
+2026-03-07T12:29:25.8064272Z     + FullyQualifiedErrorId : TerminatorExpectedAtEndOfString
+2026-03-07T12:29:25.8064272Z  
+2026-03-07T12:29:25.8283290Z   ❌  Failure - Main echo "🔎 The name of your branch is refs/heads/main and your repository is giteaadmin/first-repo."
+2026-03-07T12:29:25.8298443Z exit status 1
+2026-03-07T12:29:25.8314319Z expression 'echo "🍏 This job's status is ${{ github.status }}."' rewritten to 'format('echo "🍏 This job''s status is {0}."', github.status)'
+2026-03-07T12:29:25.8314319Z evaluating expression 'format('echo "🍏 This job''s status is {0}."', github.status)'
+2026-03-07T12:29:25.8314319Z expression 'format('echo "🍏 This job''s status is {0}."', github.status)' evaluated to '%!t(string=echo "🍏 This job's status is .")'
+2026-03-07T12:29:25.8314319Z expression 'echo "💡 The ${{ github.repository }} repository has been cloned to the runner."' rewritten to 'format('echo "💡 The {0} repository has been cloned to the runner."', github.repository)'
+2026-03-07T12:29:25.8314319Z evaluating expression 'format('echo "💡 The {0} repository has been cloned to the runner."', github.repository)'
+2026-03-07T12:29:25.8314319Z expression 'format('echo "💡 The {0} repository has been cloned to the runner."', github.repository)' evaluated to '%!t(string=echo "💡 The giteaadmin/first-repo repository has been cloned to the runner.")'
+2026-03-07T12:29:25.8314319Z skipping post step for 'Check out repository code'; main step was skipped
+2026-03-07T12:29:25.8314319Z expression 'echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."' rewritten to 'format('echo "🔎 The name of your branch is {0} and your repository is {1}."', github.ref, github.repository)'
+2026-03-07T12:29:25.8314319Z evaluating expression 'format('echo "🔎 The name of your branch is {0} and your repository is {1}."', github.ref, github.repository)'
+2026-03-07T12:29:25.8314319Z expression 'format('echo "🔎 The name of your branch is {0} and your repository is {1}."', github.ref, github.repository)' evaluated to '%!t(string=echo "🔎 The name of your branch is refs/heads/main and your repository is giteaadmin/first-repo.")'
+2026-03-07T12:29:25.8314319Z expression 'echo "🐧 This job is now running on a ${{ github.os }} server!"' rewritten to 'format('echo "🐧 This job is now running on a {0} server!"', github.os)'
+2026-03-07T12:29:25.8314319Z evaluating expression 'format('echo "🐧 This job is now running on a {0} server!"', github.os)'
+2026-03-07T12:29:25.8314319Z expression 'format('echo "🐧 This job is now running on a {0} server!"', github.os)' evaluated to '%!t(string=echo "🐧 This job is now running on a  server!")'
+2026-03-07T12:29:25.8314319Z expression 'echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."' rewritten to 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:25.8314319Z evaluating expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:29:25.8314319Z expression 'format('echo "🎉 The job was automatically triggered by a {0} event."', github.event_name)' evaluated to '%!t(string=echo "🎉 The job was automatically triggered by a push event.")'
+2026-03-07T12:29:25.8314319Z Cleaning up container for job Explore-Gitea-Actions
+2026-03-07T12:29:25.8340836Z 🏁  Job failed
+2026-03-07T12:29:25.8346127Z Job 'Explore-Gitea-Actions' failed

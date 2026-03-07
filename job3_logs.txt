@@ -1,0 +1,105 @@
+2026-03-07T12:41:20.9258734Z windows-runner(version:v0.3.0) received task 3 of job Explore-Gitea-Actions, be triggered by event: push
+2026-03-07T12:41:20.9264148Z workflow prepared
+2026-03-07T12:41:20.9264148Z evaluating expression 'success()'
+2026-03-07T12:41:20.9264148Z expression 'success()' evaluated to 'true'
+2026-03-07T12:41:20.9291203Z   ☁  git clone 'https://github.com/actions/checkout' # ref=v4
+2026-03-07T12:41:20.9291203Z   cloning https://github.com/actions/checkout to C:\Users\TAPASHRANJAN\.cache\act/c3fe249fe73091a17d6638fe1341e7bd0bcc3466ce52323c0688e83e2463a4ab
+2026-03-07T12:41:22.8562000Z Unable to pull refs/heads/v4: non-fast-forward update
+2026-03-07T12:41:22.8562000Z Cloned https://github.com/actions/checkout to C:\Users\TAPASHRANJAN\.cache\act/c3fe249fe73091a17d6638fe1341e7bd0bcc3466ce52323c0688e83e2463a4ab
+2026-03-07T12:41:22.9920187Z Checked out v4
+2026-03-07T12:41:22.9925612Z evaluating expression ''
+2026-03-07T12:41:22.9925612Z expression '' evaluated to 'true'
+2026-03-07T12:41:22.9925612Z ⭐ Run Main Print trigger info
+2026-03-07T12:41:23.0122380Z expression 'echo "The job was automatically triggered by a ${{ github.event_name }} event."' rewritten to 'format('echo "The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:41:23.0122380Z evaluating expression 'format('echo "The job was automatically triggered by a {0} event."', github.event_name)'
+2026-03-07T12:41:23.0122380Z expression 'format('echo "The job was automatically triggered by a {0} event."', github.event_name)' evaluated to '%!t(string=echo "The job was automatically triggered by a push event.")'
+2026-03-07T12:41:23.0122380Z Wrote command \n$ErrorActionPreference = 'stop'\necho "The job was automatically triggered by a push event."\nif ((Test-Path -LiteralPath variable:/LASTEXITCODE)) { exit $LASTEXITCODE }\n to 'workflow/0.ps1'
+2026-03-07T12:41:23.0149716Z Failed to setup Pty Unsupported
+2026-03-07T12:41:23.3208724Z The job was automatically triggered by a push event.
+2026-03-07T12:41:23.6350228Z Branch is refs/heads/main and repo is giteaadmin/first-repo.
+2026-03-07T12:41:25.6123682Z ::add-matcher::C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\act\actions\c3fe249fe73091a17d6638fe1341e7bd0bcc3466ce52323c0688e83e2463a4ab\dist\problem-matcher.json
+2026-03-07T12:41:25.6128935Z Syncing repository: giteaadmin/first-repo
+2026-03-07T12:41:25.6134231Z ::group::Getting Git version info
+2026-03-07T12:41:25.6139473Z Working directory is 'C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\hostexecutor'
+2026-03-07T12:41:25.6857786Z [command]"C:\Program Files\Git\cmd\git.exe" version
+2026-03-07T12:41:25.7152358Z git version 2.42.0.windows.2
+2026-03-07T12:41:25.7216688Z ::endgroup::
+2026-03-07T12:41:25.7238549Z Copying 'C:\Users\TAPASHRANJAN\.gitconfig' to 'C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\tmp\6e5c62e0-3722-4b2e-a4eb-9d4b8787633e\.gitconfig'
+2026-03-07T12:41:25.7270887Z Temporarily overriding HOME='C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\tmp\6e5c62e0-3722-4b2e-a4eb-9d4b8787633e' before making global git config changes
+2026-03-07T12:41:25.7270887Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-07T12:41:25.7287369Z [command]"C:\Program Files\Git\cmd\git.exe" config --global --add safe.directory C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\hostexecutor
+2026-03-07T12:41:25.7644489Z Deleting the contents of 'C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\hostexecutor'
+2026-03-07T12:41:25.7655232Z ::group::Initializing the repository
+2026-03-07T12:41:25.7666283Z [command]"C:\Program Files\Git\cmd\git.exe" init C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\hostexecutor
+2026-03-07T12:41:25.8146857Z Initialized empty Git repository in C:/Users/TAPASHRANJAN/.cache/act/3092e61395411be8/hostexecutor/.git/
+2026-03-07T12:41:25.8194049Z [command]"C:\Program Files\Git\cmd\git.exe" remote add origin http://localhost:3000/giteaadmin/first-repo
+2026-03-07T12:41:25.8571751Z ::endgroup::
+2026-03-07T12:41:25.8571751Z ::group::Disabling automatic garbage collection
+2026-03-07T12:41:25.8577270Z [command]"C:\Program Files\Git\cmd\git.exe" config --local gc.auto 0
+2026-03-07T12:41:25.9014635Z ::endgroup::
+2026-03-07T12:41:25.9014635Z ::group::Setting up auth
+2026-03-07T12:41:25.9029665Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-03-07T12:41:25.9361240Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-03-07T12:41:27.0476565Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp http\.http\:\/\/localhost\:3000\/\.extraheader
+2026-03-07T12:41:27.0842487Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.http\:\/\/localhost\:3000\/\.extraheader' && git config --local --unset-all 'http.http://localhost:3000/.extraheader' || :\""
+2026-03-07T12:41:27.7561561Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-07T12:41:27.7888099Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-03-07T12:41:28.5389743Z [command]"C:\Program Files\Git\cmd\git.exe" config --local http.http://localhost:3000/.extraheader "AUTHORIZATION: basic ***"
+2026-03-07T12:41:28.5855337Z ::endgroup::
+2026-03-07T12:41:28.5855337Z ::group::Fetching the repository
+2026-03-07T12:41:28.5871390Z [command]"C:\Program Files\Git\cmd\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +04e824d3c1060cc63dd5a54f87261e4fd9aea6f2:refs/remotes/origin/main
+2026-03-07T12:41:28.8125716Z From http://localhost:3000/giteaadmin/first-repo
+2026-03-07T12:41:28.8125716Z  * [new ref]         04e824d3c1060cc63dd5a54f87261e4fd9aea6f2 -> origin/main
+2026-03-07T12:41:28.8354208Z ::endgroup::
+2026-03-07T12:41:28.8354208Z ::group::Determining the checkout info
+2026-03-07T12:41:28.8359286Z ::endgroup::
+2026-03-07T12:41:28.8370301Z [command]"C:\Program Files\Git\cmd\git.exe" sparse-checkout disable
+2026-03-07T12:41:28.8731518Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-03-07T12:41:28.9061431Z ::group::Checking out the ref
+2026-03-07T12:41:28.9067336Z [command]"C:\Program Files\Git\cmd\git.exe" checkout --progress --force -B main refs/remotes/origin/main
+2026-03-07T12:41:28.9529012Z branch 'main' set up to track 'origin/main'.
+2026-03-07T12:41:28.9529012Z Switched to a new branch 'main'
+2026-03-07T12:41:28.9576847Z ::endgroup::
+2026-03-07T12:41:28.9973021Z [command]"C:\Program Files\Git\cmd\git.exe" log -1 --format=%H
+2026-03-07T12:41:29.0293257Z 04e824d3c1060cc63dd5a54f87261e4fd9aea6f2
+2026-03-07T12:41:29.0350947Z ::remove-matcher owner=checkout-git::
+2026-03-07T12:41:29.3351626Z 
+2026-03-07T12:41:29.3351626Z 
+2026-03-07T12:41:29.3351626Z     Directory: C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\hostexecutor
+2026-03-07T12:41:29.3351626Z 
+2026-03-07T12:41:29.3351626Z 
+2026-03-07T12:41:29.3367208Z Mode                 LastWriteTime         Length Name                                                                            
+2026-03-07T12:41:29.3373662Z ----                 -------------         ------ ----                                                                            
+2026-03-07T12:41:29.3379570Z d-----        07-03-2026     18:11                .gitea                                                                          
+2026-03-07T12:41:29.3482655Z -a----        07-03-2026     18:11              0 f1                                                                              
+2026-03-07T12:41:29.3498839Z -a----        07-03-2026     18:11              0 f2                                                                              
+2026-03-07T12:41:29.3514434Z -a----        07-03-2026     18:11              0 f3                                                                              
+2026-03-07T12:41:29.3519773Z -a----        07-03-2026     18:11              0 f4                                                                              
+2026-03-07T12:41:29.3530434Z -a----        07-03-2026     18:11              0 f5                                                                              
+2026-03-07T12:41:29.3551626Z 
+2026-03-07T12:41:29.3551626Z 
+2026-03-07T12:41:29.6316851Z All steps completed successfully!
+2026-03-07T12:41:29.6754787Z evaluating expression 'always()'
+2026-03-07T12:41:29.6754787Z expression 'always()' evaluated to 'true'
+2026-03-07T12:41:29.6754787Z ⭐ Run Post Check out repository code
+2026-03-07T12:41:29.6771277Z run post step for 'Check out repository code'
+2026-03-07T12:41:29.6777332Z executing remote job container: [node C:/Users/TAPASHRANJAN/.cache/act/3092e61395411be8/act/actions/c3fe249fe73091a17d6638fe1341e7bd0bcc3466ce52323c0688e83e2463a4ab/dist/index.js]
+2026-03-07T12:41:29.6831722Z Failed to setup Pty Unsupported
+2026-03-07T12:41:29.8510519Z [command]"C:\Program Files\Git\cmd\git.exe" version
+2026-03-07T12:41:29.8712061Z git version 2.42.0.windows.2
+2026-03-07T12:41:29.8760777Z ***
+2026-03-07T12:41:29.8781973Z Copying 'C:\Users\TAPASHRANJAN\.gitconfig' to 'C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\tmp\490f1803-0732-4f4e-9b73-7155b3f2b2e9\.gitconfig'
+2026-03-07T12:41:29.8803790Z Temporarily overriding HOME='C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\tmp\490f1803-0732-4f4e-9b73-7155b3f2b2e9' before making global git config changes
+2026-03-07T12:41:29.8803790Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-07T12:41:29.8820231Z [command]"C:\Program Files\Git\cmd\git.exe" config --global --add safe.directory C:\Users\TAPASHRANJAN\.cache\act\3092e61395411be8\hostexecutor
+2026-03-07T12:41:29.9160740Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-03-07T12:41:29.9483984Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-03-07T12:41:30.6115565Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp http\.http\:\/\/localhost\:3000\/\.extraheader
+2026-03-07T12:41:30.6426363Z http.http://localhost:3000/.extraheader
+2026-03-07T12:41:30.6487273Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --unset-all http.http://localhost:3000/.extraheader
+2026-03-07T12:41:30.6885355Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.http\:\/\/localhost\:3000\/\.extraheader' && git config --local --unset-all 'http.http://localhost:3000/.extraheader' || :\""
+2026-03-07T12:41:31.3372336Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-07T12:41:31.3751317Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-03-07T12:41:32.0390837Z   ✅  Success - Post Check out repository code
+2026-03-07T12:41:32.0395943Z Cleaning up container for job Explore-Gitea-Actions
+2026-03-07T12:41:32.3140534Z 🏁  Job succeeded

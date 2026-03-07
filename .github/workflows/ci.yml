@@ -1,0 +1,374 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  files-changed:
+    uses: ./.github/workflows/files-changed.yml
+    permissions:
+      contents: read
+
+  # Backend Code Quality Checks
+  backend-fmt:
+    if: needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-backend deps-tools
+      - name: Check code formatting
+        run: make fmt-check
+        env:
+          TAGS: bindata sqlite sqlite_unlock_notify
+
+  # Backend Linting
+  backend-lint:
+    if: needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-backend deps-tools
+      - name: Run backend linting
+        run: make lint-backend
+        env:
+          TAGS: bindata sqlite sqlite_unlock_notify
+
+  # Go Module Tidy Check
+  go-mod-tidy:
+    if: needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-backend deps-tools
+      - name: Check go.mod tidy
+        run: make tidy-check
+
+  # Security Vulnerability Check
+  security-check:
+    if: needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-backend deps-tools
+      - name: Security vulnerability scan
+        run: make security-check
+
+  # Swagger API Documentation Check
+  swagger-check:
+    if: needs.files-changed.outputs.swagger == 'true' || needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-backend deps-tools
+      - name: Generate and check swagger spec
+        run: |
+          make swagger-check
+          make swagger-validate
+
+  # Backend Unit Tests
+  test-backend:
+    if: needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-backend
+      - name: Run backend unit tests
+        run: make test-backend
+        env:
+          TAGS: bindata sqlite sqlite_unlock_notify
+          TEST_TAGS: sqlite sqlite_unlock_notify
+      - name: Test result validation
+        if: always()
+        run: make test-check
+
+  # Frontend Linting
+  frontend-lint:
+    if: needs.files-changed.outputs.frontend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - run: uv python install 3.14
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: make deps-frontend
+      - name: Lint JavaScript/TypeScript
+        run: make lint-frontend
+
+  # Frontend Unit Tests
+  frontend-test:
+    if: needs.files-changed.outputs.frontend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - run: uv python install 3.14
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: make deps-frontend
+      - name: Run frontend unit tests
+        run: make test-frontend
+
+  # Frontend Lockfile Check
+  frontend-lockfile:
+    if: needs.files-changed.outputs.frontend == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Check pnpm lockfile consistency
+        run: make lockfile-check
+
+  # Spell Check
+  spell-check:
+    if: needs.files-changed.outputs.backend == 'true' || needs.files-changed.outputs.frontend == 'true' || needs.files-changed.outputs.docs == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+      - run: make deps-tools
+      - name: Spell check
+        run: make lint-spell
+
+  # Template Linting
+  template-lint:
+    if: needs.files-changed.outputs.templates == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - run: uv python install 3.14
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: make deps-py
+      - run: make deps-frontend
+      - name: Lint templates
+        run: make lint-templates
+
+  # YAML Validation
+  yaml-validate:
+    if: needs.files-changed.outputs.yaml == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - run: uv python install 3.14
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: make deps-py
+      - run: make deps-frontend
+      - name: Validate YAML files
+        run: make lint-yaml
+
+  # JSON Validation
+  json-validate:
+    if: needs.files-changed.outputs.json == 'true' || needs.files-changed.outputs.actions == 'true'
+    needs: files-changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - run: uv python install 3.14
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: make deps-py
+      - run: make deps-frontend
+      - name: Validate JSON files
+        run: make lint-json
+
+  # CI Success Check - ensures all required checks passed
+  ci-success:
+    if: always()
+    needs:
+      - backend-fmt
+      - backend-lint
+      - go-mod-tidy
+      - security-check
+      - swagger-check
+      - test-backend
+      - frontend-lint
+      - frontend-test
+      - frontend-lockfile
+      - spell-check
+      - template-lint
+      - yaml-validate
+      - json-validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check CI Status
+        run: |
+          FAILED=0
+          
+          if [ "${{ needs.backend-fmt.result }}" != "success" ] && [ "${{ needs.backend-fmt.result }}" != "skipped" ]; then
+            echo "❌ Backend Format Check failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.backend-lint.result }}" != "success" ] && [ "${{ needs.backend-lint.result }}" != "skipped" ]; then
+            echo "❌ Backend Lint failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.go-mod-tidy.result }}" != "success" ] && [ "${{ needs.go-mod-tidy.result }}" != "skipped" ]; then
+            echo "❌ Go Module Tidy Check failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.security-check.result }}" != "success" ] && [ "${{ needs.security-check.result }}" != "skipped" ]; then
+            echo "❌ Security Check failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.swagger-check.result }}" != "success" ] && [ "${{ needs.swagger-check.result }}" != "skipped" ]; then
+            echo "❌ Swagger Check failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.test-backend.result }}" != "success" ] && [ "${{ needs.test-backend.result }}" != "skipped" ]; then
+            echo "❌ Backend Tests failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.frontend-lint.result }}" != "success" ] && [ "${{ needs.frontend-lint.result }}" != "skipped" ]; then
+            echo "❌ Frontend Lint failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.frontend-test.result }}" != "success" ] && [ "${{ needs.frontend-test.result }}" != "skipped" ]; then
+            echo "❌ Frontend Tests failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.frontend-lockfile.result }}" != "success" ] && [ "${{ needs.frontend-lockfile.result }}" != "skipped" ]; then
+            echo "❌ Frontend Lockfile Check failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.spell-check.result }}" != "success" ] && [ "${{ needs.spell-check.result }}" != "skipped" ]; then
+            echo "❌ Spell Check failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.template-lint.result }}" != "success" ] && [ "${{ needs.template-lint.result }}" != "skipped" ]; then
+            echo "❌ Template Lint failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.yaml-validate.result }}" != "success" ] && [ "${{ needs.yaml-validate.result }}" != "skipped" ]; then
+            echo "❌ YAML Validation failed"
+            FAILED=1
+          fi
+          
+          if [ "${{ needs.json-validate.result }}" != "success" ] && [ "${{ needs.json-validate.result }}" != "skipped" ]; then
+            echo "❌ JSON Validation failed"
+            FAILED=1
+          fi
+          
+          if [ $FAILED -eq 1 ]; then
+            exit 1
+          fi
+          
+          echo "✅ All CI checks passed"
